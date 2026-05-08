@@ -1,0 +1,7 @@
+.venv/
+*.log
+.env
+.env.local
+.env.*.local
+.idea/
+db.sqlite3
