@@ -4,4 +4,7 @@
 .env.local
 .env.*.local
 .idea/
-db.sqlite3
+__pycache__/
+*.pyc
+*.pyo
+*.db
