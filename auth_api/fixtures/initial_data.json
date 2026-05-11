@@ -1,0 +1,368 @@
+[
+  {
+    "model": "auth_api.role",
+    "pk": "11111111-1111-1111-1111-111111111111",
+    "fields": {
+      "name": "Admin",
+      "description": "Администратор системы с полными правами",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.role",
+    "pk": "22222222-2222-2222-2222-222222222222",
+    "fields": {
+      "name": "Manager",
+      "description": "Менеджер с правами управления контентом",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.role",
+    "pk": "33333333-3333-3333-3333-333333333333",
+    "fields": {
+      "name": "User",
+      "description": "Обычный пользователь с базовыми правами",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.role",
+    "pk": "44444444-4444-4444-4444-444444444444",
+    "fields": {
+      "name": "Guest",
+      "description": "Гость с правами только на просмотр",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.permission",
+    "pk": "a1a1a1a1-a1a1-a1a1-a1a1-a1a1a1a1a1a1",
+    "fields": {
+      "name": "Просмотр документов",
+      "codename": "documents_view",
+      "resource": "documents",
+      "action": "view",
+      "description": "Право на просмотр документов",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.permission",
+    "pk": "a2a2a2a2-a2a2-a2a2-a2a2-a2a2a2a2a2a2",
+    "fields": {
+      "name": "Создание документов",
+      "codename": "documents_create",
+      "resource": "documents",
+      "action": "create",
+      "description": "Право на создание документов",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.permission",
+    "pk": "a3a3a3a3-a3a3-a3a3-a3a3-a3a3a3a3a3a3",
+    "fields": {
+      "name": "Изменение документов",
+      "codename": "documents_update",
+      "resource": "documents",
+      "action": "update",
+      "description": "Право на редактирование документов",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.permission",
+    "pk": "a4a4a4a4-a4a4-a4a4-a4a4-a4a4a4a4a4a4",
+    "fields": {
+      "name": "Удаление документов",
+      "codename": "documents_delete",
+      "resource": "documents",
+      "action": "delete",
+      "description": "Право на удаление документов",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.permission",
+    "pk": "b1b1b1b1-b1b1-b1b1-b1b1-b1b1b1b1b1b1",
+    "fields": {
+      "name": "Просмотр задач",
+      "codename": "tasks_view",
+      "resource": "tasks",
+      "action": "view",
+      "description": "Право на просмотр задач",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.permission",
+    "pk": "b2b2b2b2-b2b2-b2b2-b2b2-b2b2b2b2b2b2",
+    "fields": {
+      "name": "Создание задач",
+      "codename": "tasks_create",
+      "resource": "tasks",
+      "action": "create",
+      "description": "Право на создание задач",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.permission",
+    "pk": "b3b3b3b3-b3b3-b3b3-b3b3-b3b3b3b3b3b3",
+    "fields": {
+      "name": "Изменение задач",
+      "codename": "tasks_update",
+      "resource": "tasks",
+      "action": "update",
+      "description": "Право на редактирование задач",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.permission",
+    "pk": "b4b4b4b4-b4b4-b4b4-b4b4-b4b4b4b4b4b4",
+    "fields": {
+      "name": "Удаление задач",
+      "codename": "tasks_delete",
+      "resource": "tasks",
+      "action": "delete",
+      "description": "Право на удаление задач",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.permission",
+    "pk": "c1c1c1c1-c1c1-c1c1-c1c1-c1c1c1c1c1c1",
+    "fields": {
+      "name": "Просмотр пользователей",
+      "codename": "users_view",
+      "resource": "users",
+      "action": "view",
+      "description": "Право на просмотр списка пользователей",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.permission",
+    "pk": "c2c2c2c2-c2c2-c2c2-c2c2-c2c2c2c2c2c2",
+    "fields": {
+      "name": "Управление пользователями",
+      "codename": "users_manage",
+      "resource": "users",
+      "action": "manage",
+      "description": "Право на создание, редактирование и удаление пользователей",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.permission",
+    "pk": "c3c3c3c3-c3c3-c3c3-c3c3-c3c3c3c3c3c3",
+    "fields": {
+      "name": "Управление правами доступа",
+      "codename": "acl_manage",
+      "resource": "acl",
+      "action": "manage",
+      "description": "Право на управление переопределениями прав",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.rolepermission",
+    "pk": "d1d1d1d1-d1d1-d1d1-d1d1-d1d1d1d1d1d1",
+    "fields": {
+      "role": "11111111-1111-1111-1111-111111111111",
+      "permission": "a1a1a1a1-a1a1-a1a1-a1a1-a1a1a1a1a1a1",
+      "granted_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.rolepermission",
+    "pk": "d2d2d2d2-d2d2-d2d2-d2d2-d2d2d2d2d2d2",
+    "fields": {
+      "role": "11111111-1111-1111-1111-111111111111",
+      "permission": "a2a2a2a2-a2a2-a2a2-a2a2-a2a2a2a2a2a2",
+      "granted_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.rolepermission",
+    "pk": "d3d3d3d3-d3d3-d3d3-d3d3-d3d3d3d3d3d3",
+    "fields": {
+      "role": "11111111-1111-1111-1111-111111111111",
+      "permission": "a3a3a3a3-a3a3-a3a3-a3a3-a3a3a3a3a3a3",
+      "granted_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.rolepermission",
+    "pk": "d4d4d4d4-d4d4-d4d4-d4d4-d4d4d4d4d4d4",
+    "fields": {
+      "role": "11111111-1111-1111-1111-111111111111",
+      "permission": "a4a4a4a4-a4a4-a4a4-a4a4-a4a4a4a4a4a4",
+      "granted_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.rolepermission",
+    "pk": "d5d5d5d5-d5d5-d5d5-d5d5-d5d5d5d5d5d5",
+    "fields": {
+      "role": "11111111-1111-1111-1111-111111111111",
+      "permission": "b1b1b1b1-b1b1-b1b1-b1b1-b1b1b1b1b1b1",
+      "granted_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.rolepermission",
+    "pk": "d6d6d6d6-d6d6-d6d6-d6d6-d6d6d6d6d6d6",
+    "fields": {
+      "role": "11111111-1111-1111-1111-111111111111",
+      "permission": "b2b2b2b2-b2b2-b2b2-b2b2-b2b2b2b2b2b2",
+      "granted_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.rolepermission",
+    "pk": "d7d7d7d7-d7d7-d7d7-d7d7-d7d7d7d7d7d7",
+    "fields": {
+      "role": "11111111-1111-1111-1111-111111111111",
+      "permission": "b3b3b3b3-b3b3-b3b3-b3b3-b3b3b3b3b3b3",
+      "granted_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.rolepermission",
+    "pk": "d8d8d8d8-d8d8-d8d8-d8d8-d8d8d8d8d8d8",
+    "fields": {
+      "role": "11111111-1111-1111-1111-111111111111",
+      "permission": "b4b4b4b4-b4b4-b4b4-b4b4-b4b4b4b4b4b4",
+      "granted_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.rolepermission",
+    "pk": "d9d9d9d9-d9d9-d9d9-d9d9-d9d9d9d9d9d9",
+    "fields": {
+      "role": "11111111-1111-1111-1111-111111111111",
+      "permission": "c1c1c1c1-c1c1-c1c1-c1c1-c1c1c1c1c1c1",
+      "granted_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.rolepermission",
+    "pk": "e1e1e1e1-e1e1-e1e1-e1e1-e1e1e1e1e1e1",
+    "fields": {
+      "role": "11111111-1111-1111-1111-111111111111",
+      "permission": "c2c2c2c2-c2c2-c2c2-c2c2-c2c2c2c2c2c2",
+      "granted_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.rolepermission",
+    "pk": "e2e2e2e2-e2e2-e2e2-e2e2-e2e2e2e2e2e2",
+    "fields": {
+      "role": "11111111-1111-1111-1111-111111111111",
+      "permission": "c3c3c3c3-c3c3-c3c3-c3c3-c3c3c3c3c3c3",
+      "granted_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.rolepermission",
+    "pk": "e3e3e3e3-e3e3-e3e3-e3e3-e3e3e3e3e3e3",
+    "fields": {
+      "role": "22222222-2222-2222-2222-222222222222",
+      "permission": "a1a1a1a1-a1a1-a1a1-a1a1-a1a1a1a1a1a1",
+      "granted_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.rolepermission",
+    "pk": "e4e4e4e4-e4e4-e4e4-e4e4-e4e4e4e4e4e4",
+    "fields": {
+      "role": "22222222-2222-2222-2222-222222222222",
+      "permission": "a2a2a2a2-a2a2-a2a2-a2a2-a2a2a2a2a2a2",
+      "granted_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.rolepermission",
+    "pk": "e5e5e5e5-e5e5-e5e5-e5e5-e5e5e5e5e5e5",
+    "fields": {
+      "role": "22222222-2222-2222-2222-222222222222",
+      "permission": "a3a3a3a3-a3a3-a3a3-a3a3-a3a3a3a3a3a3",
+      "granted_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.rolepermission",
+    "pk": "e6e6e6e6-e6e6-e6e6-e6e6-e6e6e6e6e6e6",
+    "fields": {
+      "role": "22222222-2222-2222-2222-222222222222",
+      "permission": "b1b1b1b1-b1b1-b1b1-b1b1-b1b1b1b1b1b1",
+      "granted_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.rolepermission",
+    "pk": "e7e7e7e7-e7e7-e7e7-e7e7-e7e7e7e7e7e7",
+    "fields": {
+      "role": "22222222-2222-2222-2222-222222222222",
+      "permission": "b2b2b2b2-b2b2-b2b2-b2b2-b2b2b2b2b2b2",
+      "granted_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.rolepermission",
+    "pk": "e8e8e8e8-e8e8-e8e8-e8e8-e8e8e8e8e8e8",
+    "fields": {
+      "role": "22222222-2222-2222-2222-222222222222",
+      "permission": "b3b3b3b3-b3b3-b3b3-b3b3-b3b3b3b3b3b3",
+      "granted_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.rolepermission",
+    "pk": "e9e9e9e9-e9e9-e9e9-e9e9-e9e9e9e9e9e9",
+    "fields": {
+      "role": "33333333-3333-3333-3333-333333333333",
+      "permission": "a1a1a1a1-a1a1-a1a1-a1a1-a1a1a1a1a1a1",
+      "granted_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.rolepermission",
+    "pk": "f1f1f1f1-f1f1-f1f1-f1f1-f1f1f1f1f1f1",
+    "fields": {
+      "role": "33333333-3333-3333-3333-333333333333",
+      "permission": "b1b1b1b1-b1b1-b1b1-b1b1-b1b1b1b1b1b1",
+      "granted_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.rolepermission",
+    "pk": "f2f2f2f2-f2f2-f2f2-f2f2-f2f2f2f2f2f2",
+    "fields": {
+      "role": "33333333-3333-3333-3333-333333333333",
+      "permission": "b2b2b2b2-b2b2-b2b2-b2b2-b2b2b2b2b2b2",
+      "granted_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.rolepermission",
+    "pk": "f3f3f3f3-f3f3-f3f3-f3f3-f3f3f3f3f3f3",
+    "fields": {
+      "role": "44444444-4444-4444-4444-444444444444",
+      "permission": "a1a1a1a1-a1a1-a1a1-a1a1-a1a1a1a1a1a1",
+      "granted_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth_api.rolepermission",
+    "pk": "f4f4f4f4-f4f4-f4f4-f4f4-f4f4f4f4f4f4",
+    "fields": {
+      "role": "44444444-4444-4444-4444-444444444444",
+      "permission": "b1b1b1b1-b1b1-b1b1-b1b1-b1b1b1b1b1b1",
+      "granted_at": "2024-01-01T00:00:00Z"
+    }
+  }
+]
