@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        h1 { color: white; text-align: center; margin-bottom: 10px; font-size: 2.5em; }
+        .subtitle { color: rgba(255,255,255,0.9); text-align: center; margin-bottom: 20px; }
+        .auth-panel {
+            background: white; border-radius: 12px; padding: 20px; margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+        .auth-panel h3 { margin-bottom: 10px; color: #333; }
+        .auth-panel p { margin-bottom: 15px; color: #666; font-size: 0.9em; }
+        .auth-panel input {
+            width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px;
+            font-size: 0.9em; margin-bottom: 15px; font-family: monospace;
+        }
+        .auth-panel button {
+            padding: 10px 20px; border: none; border-radius: 6px; font-size: 0.9em;
+            font-weight: 600; cursor: pointer; margin-right: 10px;
+        }
+        .auth-panel button:first-of-type { background: #667eea; color: white; }
+        .auth-panel button:last-of-type { background: #dc3545; color: white; }
+        .token-status { margin-top: 10px; font-size: 0.85em; font-weight: 600; }
+        .endpoint-group {
+            background: white; border-radius: 12px; padding: 25px; margin-bottom: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+        .group-title { font-size: 1.4em; font-weight: 600; color: #333; margin-bottom: 20px; border-bottom: 2px solid #667eea; padding-bottom: 10px; }
+        .endpoint-container { margin-bottom: 15px; }
+        .endpoint-info {
+            display: flex; align-items: center; padding: 15px; background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .method {
+            font-weight: 700; font-size: 0.85em; padding: 6px 12px; border-radius: 6px;
+            min-width: 80px; text-align: center; margin-right: 15px;
+        }
+        .method.POST { background: #28a745; color: white; }
+        .method.GET { background: #17a2b8; color: white; }
+        .method.PUT { background: #ffc107; color: #333; }
+        .method.DELETE { background: #dc3545; color: white; }
+        .path { font-family: monospace; font-size: 0.95em; color: #667eea; font-weight: 600; flex: 1; }
+        .desc { color: #666; margin-right: 15px; font-size: 0.9em; }
+        .auth-badge { font-size: 0.75em; padding: 4px 8px; border-radius: 4px; font-weight: 600; }
+        .auth-badge.required { background: #ffc107; color: #333; }
+        .auth-badge.optional { background: #28a745; color: white; }
+        .test-btn, .open-btn {
+            padding: 8px 16px; border: none; border-radius: 6px; font-size: 0.85em;
+            font-weight: 600; cursor: pointer; margin-left: 10px;
+        }
+        .test-btn { background: #17a2b8; color: white; }
+        .test-btn:hover { background: #138496; }
+        .open-btn { background: #667eea; color: white; }
+        .open-btn:hover { background: #5568d3; }
+        .endpoint-response {
+            margin-top: 10px; padding: 15px; background: #1e1e1e; border-radius: 8px;
+            color: #d4d4d4; font-family: monospace; font-size: 0.85em; display: none;
+            max-height: 300px; overflow-y: auto;
+        }
+        .endpoint-response.show { display: block; }
+        .endpoint-response.success { border-left: 4px solid #28a745; }
+        .endpoint-response.error { border-left: 4px solid #dc3545; }
+        .footer { text-align: center; color: rgba(255,255,255,0.8); margin-top: 40px; }
+        .modal {
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0;
+            width: 100%; height: 100%; background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: white; margin: 5% auto; padding: 30px; border-radius: 12px;
+            width: 90%; max-width: 700px; position: relative;
+        }
+        .modal-close {
+            position: absolute; right: 20px; top: 15px; font-size: 28px;
+            font-weight: bold; cursor: pointer; color: #666;
+        }
+        .modal-close:hover { color: #333; }
+        .modal-content h3 { margin-bottom: 20px; color: #333; }
+        .request-info {
+            display: flex; align-items: center; margin-bottom: 20px; padding: 15px;
+            background: #f8f9fa; border-radius: 8px;
+        }
+        .request-info .method { margin-right: 15px; min-width: 80px; }
+        #requestBody {
+            width: 100%; height: 200px; padding: 15px; border: 2px solid #ddd;
+            border-radius: 8px; font-family: monospace; font-size: 0.9em;
+            margin-bottom: 15px; resize: vertical;
+        }
+        .send-btn {
+            padding: 12px 30px; background: #667eea; color: white; border: none;
+            border-radius: 6px; font-size: 1em; font-weight: 600; cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>API Документация</h1>
+        <p class="subtitle">Система аутентификации и авторизации</p>
+        
+        <div class="auth-panel">
+            <h3>Авторизация</h3>
+            <p>Введите ваш JWT token:</p>
+            <input type="text" id="authToken" placeholder="eyJ0eXAiOiJKV1QiLCJhbGci..." />
+            <button onclick="saveToken()">Сохранить</button>
+            <button onclick="clearToken()">Очистить</button>
+            <p id="tokenStatus" class="token-status"></p>
+        </div>
+
+        {% for group in endpoints %}
+        <div class="endpoint-group">
+            <h2 class="group-title">{{ group.group }}</h2>
+            {% for endpoint in group.endpoints %}
+            <div class="endpoint-container">
+                <div class="endpoint-info">
+                    <span class="method {{ endpoint.method_class }}">{{ endpoint.method }}</span>
+                    <span class="path">{{ endpoint.path }}</span>
+                    <span class="desc">{{ endpoint.desc }}</span>
+                    {% if endpoint.auth %}<span class="auth-badge required">Auth</span>
+                    {% else %}<span class="auth-badge optional">Public</span>{% endif %}
+                    
+                    {% if endpoint.method == 'GET' or endpoint.method == 'DELETE' %}
+                    <button class="test-btn" onclick="testEndpoint('{{ endpoint.path|safe }}', '{{ endpoint.method }}', '{{ forloop.counter }}-{{ forloop.parentloop.counter }}')">Test</button>
+                    {% else %}
+                    <button class="open-btn" onclick="openForm('{{ endpoint.path|safe }}', '{{ endpoint.method }}', '{{ forloop.counter }}-{{ forloop.parentloop.counter }}')">Open</button>
+                    {% endif %}
+                </div>
+                <div class="endpoint-response" id="response-{{ forloop.counter }}-{{ forloop.parentloop.counter }}"></div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        
+        <div class="footer"><p>Разработано с Django REST Framework</p></div>
+    </div>
+    
+    <div id="modalForm" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <h3>Запрос</h3>
+            <div class="request-info">
+                <span class="method" id="modalMethod">POST</span>
+                <span class="path" id="modalPath">/api/...</span>
+            </div>
+            <textarea id="requestBody" placeholder='{"key": "value"}'></textarea>
+            <button class="send-btn" onclick="sendRequest()">Отправить</button>
+            <div id="modalResponse" class="endpoint-response"></div>
+        </div>
+    </div>
+    
+    <script>
+        function saveToken() {
+            const token = document.getElementById('authToken').value.trim();
+            if (token) {
+                localStorage.setItem('jwt_token', token);
+                document.getElementById('tokenStatus').textContent = 'Token сохранён!';
+                document.getElementById('tokenStatus').style.color = 'green';
+            }
+        }
+        function clearToken() {
+            localStorage.removeItem('jwt_token');
+            localStorage.removeItem('jwt_refresh');
+            document.getElementById('authToken').value = '';
+            document.getElementById('tokenStatus').textContent = 'Token очищен!';
+            document.getElementById('tokenStatus').style.color = 'orange';
+        }
+        function testEndpoint(path, method, responseId) {
+            const token = localStorage.getItem('jwt_token');
+            const responseDiv = document.getElementById('response-' + responseId);
+            if (!token && path.includes('/api/')) {
+                responseDiv.innerHTML = '⚠ Введите JWT token!';
+                responseDiv.className = 'endpoint-response show error';
+                return;
+            }
+            let actualPath = path;
+            if (path.includes('/users/') && path.includes('/roles/')) {
+                const headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token};
+                fetch('/api/auth/profile/', {method: 'GET', headers: headers})
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.id) {
+                            actualPath = path.replace('USER_ID', data.id);
+                            doTest(actualPath, method, responseDiv, token);
+                        }
+                    })
+                    .catch(error => {
+                        responseDiv.innerHTML = 'Error: ' + error.message;
+                        responseDiv.className = 'endpoint-response show error';
+                    });
+                return;
+            }
+            doTest(actualPath, method, responseDiv, token);
+        }
+        function doTest(path, method, responseDiv, token) {
+            responseDiv.innerHTML = 'Отправка...';
+            responseDiv.className = 'endpoint-response show';
+            const headers = {'Content-Type': 'application/json'};
+            if (token) headers['Authorization'] = 'Bearer ' + token;
+            fetch(path, {method: method, headers: headers})
+                .then(res => res.json().then(data => ({status: res.status, data: data})))
+                .then(result => {
+                    const cls = result.status >= 200 && result.status < 300 ? 'success' : 'error';
+                    responseDiv.innerHTML = 'Status: ' + result.status + '\n<pre>' + JSON.stringify(result.data, null, 2) + '</pre>';
+                    responseDiv.className = 'endpoint-response show ' + cls;
+                })
+                .catch(error => {
+                    responseDiv.innerHTML = 'Error: ' + error.message;
+                    responseDiv.className = 'endpoint-response show error';
+                });
+        }
+        function openForm(path, method, responseId) {
+            document.getElementById('modalMethod').textContent = method;
+            document.getElementById('modalPath').textContent = path;
+            document.getElementById('requestBody').value = '';
+            document.getElementById('modalResponse').className = 'endpoint-response';
+            document.getElementById('modalForm').style.display = 'block';
+            window.currentResponseId = responseId;
+            if (path.includes('/auth/register/')) {
+                document.getElementById('requestBody').value = JSON.stringify({
+                    email: 'user@example.com', password: 'SecurePass123', password_confirm: 'SecurePass123', first_name: 'Иван', last_name: 'Иванов'
+                }, null, 2);
+            } else if (path.includes('/auth/login/')) {
+                document.getElementById('requestBody').value = JSON.stringify({email: 'user@example.com', password: 'SecurePass123'}, null, 2);
+            } else if (path.includes('/auth/logout/')) {
+                const refreshToken = localStorage.getItem('jwt_refresh');
+                document.getElementById('requestBody').value = JSON.stringify({
+                    refresh_token: refreshToken || 'Сначала выполните вход!'
+                }, null, 2);
+            } else if (path.includes('/profile/') && method === 'PUT') {
+                document.getElementById('requestBody').value = JSON.stringify({first_name: 'Петр', last_name: 'Петров', middle_name: 'Петрович'}, null, 2);
+            } else if (path.includes('/profile/password/')) {
+                document.getElementById('requestBody').value = JSON.stringify({old_password: 'старый', new_password: 'новый123', new_password_confirm: 'новый123'}, null, 2);
+            } else if (path.includes('/profile/delete/')) {
+                document.getElementById('requestBody').value = '';
+            } else if (path.includes('/roles/') && !path.includes('user')) {
+                document.getElementById('requestBody').value = JSON.stringify({name: 'Editor', description: 'Редактор'}, null, 2);
+            } else if (path.includes('/users/') && path.includes('/roles/')) {
+                const token = localStorage.getItem('jwt_token');
+                if (token) {
+                    const headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token};
+                    fetch('/api/auth/profile/', {method: 'GET', headers: headers})
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.id) {
+                                const newPath = path.replace('USER_ID', data.id);
+                                document.getElementById('modalPath').textContent = newPath;
+                            }
+                        });
+                }
+                document.getElementById('requestBody').value = '';
+            }
+        }
+        function closeModal() { document.getElementById('modalForm').style.display = 'none'; }
+        function sendRequest() {
+            const token = localStorage.getItem('jwt_token');
+            const path = document.getElementById('modalPath').textContent;
+            const method = document.getElementById('modalMethod').textContent;
+            const body = document.getElementById('requestBody').value;
+            const responseDiv = document.getElementById('modalResponse');
+            responseDiv.innerHTML = 'Отправка...';
+            responseDiv.className = 'endpoint-response show';
+            const headers = {'Content-Type': 'application/json'};
+            if (token) headers['Authorization'] = 'Bearer ' + token;
+            const options = {method: method, headers: headers};
+            if (method !== 'GET' && method !== 'DELETE') options.body = body;
+            fetch(path, options)
+                .then(res => res.json().then(data => ({status: res.status, data: data})))
+                .then(result => {
+                    if (path.includes('/auth/login/') && result.status >= 200 && result.status < 300) {
+                        if (result.data.access) {
+                            localStorage.setItem('jwt_token', result.data.access);
+                            document.getElementById('authToken').value = result.data.access;
+                        }
+                        if (result.data.refresh) {
+                            localStorage.setItem('jwt_refresh', result.data.refresh);
+                        }
+                    }
+                    if (path.includes('/auth/logout/') && result.status >= 200 && result.status < 300) {
+                        localStorage.removeItem('jwt_token');
+                        localStorage.removeItem('jwt_refresh');
+                        document.getElementById('authToken').value = '';
+                    }
+                    const cls = result.status >= 200 && result.status < 300 ? 'success' : 'error';
+                    responseDiv.innerHTML = 'Status: ' + result.status + '\n<pre>' + JSON.stringify(result.data, null, 2) + '</pre>';
+                    responseDiv.className = 'endpoint-response show ' + cls;
+                    const responseId = window.currentResponseId;
+                    if (responseId) {
+                        const listResponseDiv = document.getElementById('response-' + responseId);
+                        if (listResponseDiv) {
+                            listResponseDiv.innerHTML = responseDiv.innerHTML;
+                            listResponseDiv.className = responseDiv.className;
+                        }
+                    }
+                })
+                .catch(error => {
+                    responseDiv.innerHTML = 'Error: ' + error.message;
+                    responseDiv.className = 'endpoint-response show error';
+                    const responseId = window.currentResponseId;
+                    if (responseId) {
+                        const listResponseDiv = document.getElementById('response-' + responseId);
+                        if (listResponseDiv) {
+                            listResponseDiv.innerHTML = responseDiv.innerHTML;
+                            listResponseDiv.className = responseDiv.className;
+                        }
+                    }
+                });
+        }
+        window.addEventListener('load', () => {
+            const token = localStorage.getItem('jwt_token');
+            if (token) {
+                document.getElementById('authToken').value = token;
+                document.getElementById('tokenStatus').textContent = 'Token загружен!';
+                document.getElementById('tokenStatus').style.color = 'green';
+            }
+        });
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('modalForm')) closeModal();
+        }
+    </script>
+</body>
+</html>
