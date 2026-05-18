@@ -1,5 +1,7 @@
 # Система аутентификации и авторизации (DRF + Postgres)
 
+На главной странице для удобства тестирования добавлены все эндпоинты.
+
 ## Описание архитектуры
 
 Приложение реализует систему управления доступом на основе гибридной модели **RBAC (Role-Based Access Control)** + **ACL (Access Control List)**.
@@ -225,13 +227,9 @@
 # Загрузка тестовых данных
 python manage.py loaddata auth_api/fixtures/initial_data.json
 python manage.py create_test_users
+python manage.py add_acl_deny
 ```
 
-### Автоматические тесты
-
-```bash
-python manage.py test auth_api.tests
-```
 ---
 
 ## Установка и запуск
@@ -258,38 +256,66 @@ python manage.py test auth_api.tests
    python manage.py create_test_users
    ```
 
-6. Создать суперпользователя:
+6. Добавить ACL deny для restricted пользователя:
+   ```bash
+   python manage.py add_acl_deny
+   ```
+
+7. Создать суперпользователя (опционально):
    ```bash
    python manage.py createsuperuser
    ```
 
-6. Запустить сервер:
+8. Запустить сервер:
    ```bash
    python manage.py runserver
    ```
 
 ---
 
-## Тестовые данные
+## Примеры запросов
 
-### initial_data.json
+### Получение токена (вход)
 
-После загрузки в базе будут:
+```bash
+curl -X POST http://127.0.0.1:8000/api/auth/login/ ^
+  -H "Content-Type: application/json" ^
+  -d "{\"email\": \"admin@example.com\", \"password\": \"SecurePass123\"}"
+```
 
-**Роли:**
-- Admin
-- Manager
-- User
-- Guest
+Ответ:
+```json
+{
+  "user": {},
+  "refresh": "eyJ0eXAiOiJKV1QiLCJhbGc...",
+  "access": "eyJ0eXAiOiJKV1QiLCJhbGc..."
+}
+```
 
-**Права:**
-- documents_view, documents_create, documents_update, documents_delete
-- tasks_view, tasks_create, tasks_update, tasks_delete
-- users_view, users_manage
-- acl_manage
+### Запрос к защищенному ресурсу
 
-**Назначения прав ролям:**
-- **Admin**: все права
-- **Manager**: документы (view, create, update), задачи (view, create, update)
-- **User**: документы (view), задачи (view, create)
-- **Guest**: документы (view), задачи (view)
+```bash
+curl -X GET http://127.0.0.1:8000/api/documents/ ^
+  -H "Authorization: Bearer <ACCESS_TOKEN>"
+```
+
+### Тестирование с разными ролями
+
+| Пользователь | Пароль | Что проверить |
+|-------------|--------|---------------|
+| `admin@example.com` | `SecurePass123` | Полный доступ ко всему |
+| `manager@example.com` | `SecurePass123` | Документы/задачи + 403 на admin |
+| `user@example.com` | `SecurePass123` | Только просмотр документов |
+| `guest@example.com` | `SecurePass123` | Только просмотр |
+| `restricted@example.com` | `SecurePass123` | 403 на всё |
+
+---
+
+## Тестирование
+
+### Запуск тестов
+
+```bash
+# Все тесты
+python manage.py test auth_api.tests
+```
