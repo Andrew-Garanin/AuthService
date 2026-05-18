@@ -25,7 +25,6 @@ class IndexView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
-        from django.utils import timezone
         api_endpoints = [
             {
                 'group': 'Аутентификация',
@@ -50,10 +49,23 @@ class IndexView(APIView):
                 ]
             },
             {
-                'group': 'Mock-ресурсы (ещё не готово)',
+                'group': 'Ресурсы (Documents)',
                 'endpoints': [
-                    {'method': 'GET', 'method_class': 'GET', 'path': '/api/documents/', 'desc': 'Документы', 'auth': True},
-                    {'method': 'GET', 'method_class': 'GET', 'path': '/api/tasks/', 'desc': 'Задачи', 'auth': True},
+                    {'method': 'GET', 'method_class': 'GET', 'path': '/api/documents/', 'desc': 'Список документов', 'auth': True},
+                    {'method': 'POST', 'method_class': 'POST', 'path': '/api/documents/', 'desc': 'Создать документ', 'auth': True},
+                    {'method': 'GET', 'method_class': 'GET', 'path': '/api/documents/doc-001/', 'desc': 'Документ (детали)', 'auth': True},
+                    {'method': 'PUT', 'method_class': 'PUT', 'path': '/api/documents/doc-001/', 'desc': 'Обновить документ', 'auth': True},
+                    {'method': 'DELETE', 'method_class': 'DELETE', 'path': '/api/documents/doc-001/', 'desc': 'Удалить документ', 'auth': True},
+                ]
+            },
+            {
+                'group': 'Ресурсы (Tasks)',
+                'endpoints': [
+                    {'method': 'GET', 'method_class': 'GET', 'path': '/api/tasks/', 'desc': 'Список задач', 'auth': True},
+                    {'method': 'POST', 'method_class': 'POST', 'path': '/api/tasks/', 'desc': 'Создать задачу', 'auth': True},
+                    {'method': 'GET', 'method_class': 'GET', 'path': '/api/tasks/task-001/', 'desc': 'Задача (детали)', 'auth': True},
+                    {'method': 'PUT', 'method_class': 'PUT', 'path': '/api/tasks/task-001/', 'desc': 'Обновить задачу', 'auth': True},
+                    {'method': 'DELETE', 'method_class': 'DELETE', 'path': '/api/tasks/task-001/', 'desc': 'Удалить задачу', 'auth': True},
                 ]
             },
         ]
