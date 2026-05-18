@@ -227,50 +227,52 @@
 # Загрузка тестовых данных
 python manage.py loaddata auth_api/fixtures/initial_data.json
 python manage.py create_test_users
-python manage.py add_acl_deny
 ```
 
 ---
 
 ## Установка и запуск
 
-1. Установить зависимости:
+1. Создать виртуальное окружение:
    ```bash
-   pip install -r requirements.txt
+   py -m venv .venv
    ```
 
-2. Создать `.env` файл на основе `.env.example`
-
-3. Применить миграции:
+2. Установить зависимости:
    ```bash
-   python manage.py migrate
+   .venv\Scripts\pip.exe  install -r requirements.txt
    ```
 
-4. Загрузить тестовые данные (роли и права):
+3. Создать `.env` файл на основе `.env.example`:
    ```bash
-   python manage.py loaddata auth_api/fixtures/initial_data.json
+   cp .env.example .env
    ```
 
-5. Создать тестовых пользователей:
+4. Применить миграции:
    ```bash
-   python manage.py create_test_users
+   .venv\Scripts\python.exe manage.py makemigrations
+   .venv\Scripts\python.exe manage.py migrate
    ```
 
-6. Добавить ACL deny для restricted пользователя:
+5. Загрузить тестовые данные (роли и права):
    ```bash
-   python manage.py add_acl_deny
+   .venv\Scripts\python.exe manage.py loaddata auth_api/fixtures/initial_data.json
+   ```
+
+6. Создать тестовых пользователей:
+   ```bash
+   .venv\Scripts\python.exe manage.py create_test_users
    ```
 
 7. Создать суперпользователя (опционально):
    ```bash
-   python manage.py createsuperuser
+   .venv\Scripts\python.exe manage.py createsuperuser
    ```
 
 8. Запустить сервер:
-   ```bash
-   python manage.py runserver
-   ```
-
+    ```bash
+    .venv\Scripts\python.exe manage.py runserver
+    ```
 ---
 
 ## Примеры запросов
@@ -317,5 +319,5 @@ curl -X GET http://127.0.0.1:8000/api/documents/ ^
 
 ```bash
 # Все тесты
-python manage.py test auth_api.tests
+.venv\Scripts\python.exe manage.py test auth_api.tests
 ```
