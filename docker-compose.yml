@@ -28,8 +28,8 @@ services:
     environment:
       DB_HOST: db
       DB_PORT: 5432
-    volumes:
-      - .:/app
+    # volumes:
+    #   - .:/app
     ports:
       - "8000:8000"
     depends_on:

@@ -22,6 +22,20 @@ while True:
         time.sleep(0.5)
 "
 
+echo "Ensuring migration packages..."
+mkdir -p /app/auth_api/migrations
+touch /app/auth_api/migrations/__init__.py
+touch /app/auth_api/__init__.py
+
+echo "Contents of /app/auth_api/migrations:"
+ls -la /app/auth_api/migrations/
+
+echo "Checking Python can see migrations:"
+python -c "from django.db.migrations.loader import MigrationLoader; print('Django OK')" || true
+
+echo "Making migrations for auth_api..."
+python manage.py makemigrations auth_api
+
 echo "Applying migrations..."
 python manage.py migrate
 
