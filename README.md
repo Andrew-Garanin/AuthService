@@ -273,6 +273,32 @@ python manage.py create_test_users
     ```bash
     .venv\Scripts\python.exe manage.py runserver
     ```
+
+---
+
+## Запуск через Docker
+
+Проект включает `Dockerfile` и `docker-compose.yml` для быстрого запуска с PostgreSQL.
+
+1. Скопировать `.env.example` в `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Запустить контейнеры:
+   ```bash
+   docker-compose up --build
+   ```
+
+3. Дождаться сообщения `Starting server...` и открыть:
+   ```
+   http://localhost:8000
+   ```
+
+При первом запуске автоматически выполняются:
+- Миграции (`migrate`)
+- Загрузка фикстур (`loaddata`)
+- Создание тестовых пользователей
 ---
 
 ## Примеры запросов
